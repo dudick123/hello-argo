@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: hello-microservice-bad
+    tenant: tenant-foo
+    version: v1
+  name: sa-nginx-bad
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-nginx-service-bad
+spec:
+  type: ClusterIP
+  selector:
+    app: hello-microservice-bad
+    tenant: tenant-foo
+    version: v1
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-microservice-bad
+    tenant: tenant-foo
+    version: v1
+  name: deploy-nginx-bad
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: hello-microservice-bad
+      tenant: tenant-foo
+      version: v1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: hello-microservice-bad
+        tenant: tenant-foo
+        version: v1
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27.0 # Error 1, image pull backoff. Update the image tag from 1.27.0 -> 1.24.0
+        imagePullPolicy: Always
+        command: ["nginx-debug", "-g", "daemon off;wrong-command;"] # Error 2, crash loop backoff. Remove this line
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080 # Error 3, probe failure Update the port from 8080 -> 80
+          initialDelaySeconds: 20
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080 # Error 3, Update the port from 8080 -> 80
+            scheme: HTTP
+          initialDelaySeconds: 20
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: "128Mi"
+          requests:
+            cpu: "0.2"
+            memory: "128Mi"
+      serviceAccountName: sa-nginx-bad

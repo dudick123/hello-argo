@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: tenant-b-project
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  # Project description
+  description: Tenant B Demo Project Docker-Desktop
+
+  # Allow manifests to deploy to these namsespaces
+  sourceNamespaces:
+  - tenant-b-gitops-docker
+
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+  - 'https://github.com/dudick123/hello-argo.git'
+  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  # Destination clusters can be identified by 'server', 'name', or both.
+  destinations:
+  - namespace: demo-gitops-docker
+    server: https://kubernetes.default.svc
+    name: in-cluster
+
+  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
+  namespaceResourceBlacklist:
+  - group: ''
+    kind: ResourceQuota
+  - group: ''
+    kind: LimitRange
+  - group: ''
+    kind: NetworkPolicy
+
+  # Deny all namespaced-scoped resources from being created, except for app prototypes
+  namespaceResourceWhitelist:
+  - group: '*' # Allow all kinds of resources in all groups
+    kind: '*' # Allow all kinds of resources in all groups
+
+  # Enables namespace orphaned resource monitoring.
+  orphanedResources:
+    warn: false
