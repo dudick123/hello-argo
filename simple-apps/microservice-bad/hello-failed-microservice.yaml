@@ -56,13 +56,13 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: 8080 # Error 3, probe failure Update the port from 8080 -> 80
+            port: 80 # Error 3, probe failure Update the port from 8080 -> 80
           initialDelaySeconds: 20
           periodSeconds: 3
         livenessProbe:
           httpGet:
             path: /
-            port: 8080 # Error 3, Update the port from 8080 -> 80
+            port: 80 # Error 3, Update the port from 8080 -> 80
             scheme: HTTP
           initialDelaySeconds: 20
           timeoutSeconds: 3
