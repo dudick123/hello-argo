@@ -30,8 +30,8 @@ metadata:
     version: v1
   name: deploy-nginx-bad
 spec:
-  replicas: 1
-  revisionHistoryLimit: 3
+  replicas: 4
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app: hello-microservice-bad
