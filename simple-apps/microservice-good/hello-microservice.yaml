@@ -30,7 +30,7 @@ metadata:
     version: v1
   name: deploy-nginx
 spec:
-  replicas: 3
+  replicas: 2
   revisionHistoryLimit: 3
   selector:
     matchLabels:
