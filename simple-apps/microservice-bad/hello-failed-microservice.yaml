@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.25.0 # Error 1, image pull backoff. Update the image tag from 1.27.0 -> 1.24.0
+        image: nginx:1.27.0 # Error 1, image pull backoff. Update the image tag from 1.27.0 -> 1.24.0
         imagePullPolicy: Always
         #command: ["nginx-debug", "-g", "daemon off;wrong-command;"] # Error 2, crash loop backoff. Remove this line
         readinessProbe:
