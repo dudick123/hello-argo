@@ -1,0 +1,12 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: kind-api-playground
+nodes:
+- role: control-plane
+- role: worker
+  # extraPortMappings:
+  # - containerPort: 30080
+  #   hostPort: 30070
+networking:
+  ipFamily: ipv6
+  apiServerAddress: 127.0.0.1
