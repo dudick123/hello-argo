@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+name: project-catalog-list
+spec:
+generators:
+- list:
+     elements:
+     - cluster: gitops-kind
+       url: https://kubernetes.default.svc
+       target: cloud
+       env: playground
+       project: system-playground
+     - cluster: gitops-kind
+       url: https://kubernetes.default.svc
+       target: local
+       env: kind
+       project: system-playground
+     - cluster: gitops-kind
+       url: https://kubernetes.default.svc
+       target: on-prem
+       env: foo-os-int
+       project: system-playground
+ 
+template:
+   metadata:
+     name: 'system-project-catalog-{{env}}'
+     labels:
+       target: '{{target}}'
+       env: '{{env}}'
+       cluster: '{{cluster}}'
+   spec:
+     project: default
+     source:
+       repoURL: https://github.com/dudick123/many-appsets-demo.git
+       targetRevision: main
+       path: projects/manifests/{{target}}/{{env}}
+     destination:
+       server: '{{url}}'
+       namespace: argocd
+     syncPolicy:
+       automated:
+        prune: true
+        selfHeal: true
