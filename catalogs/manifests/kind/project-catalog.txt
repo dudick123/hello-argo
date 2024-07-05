@@ -34,7 +34,7 @@ template:
      project: default
      source:
        repoURL: https://github.com/dudick123/hello-argo.git
-       targetRevision: main
+       targetRevision: HEAD
        path: projects/manifests/{{target}}/{{env}}
      destination:
        server: '{{url}}'
