@@ -32,7 +32,7 @@ template:
    spec:
      project: default
      source:
-       repoURL: https://github.com/dudick123/many-appsets-demo.git
+       repoURL: https://github.com/dudick123/hello-argo.git
        targetRevision: main
        path: projects/manifests/{{target}}/{{env}}
      destination:
