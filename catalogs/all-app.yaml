@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/dudick123/hello-argo.git
     targetRevision: HEAD
-    path: catalogs/envs/kind
+    path: catalogs/manifests/kind
 
   destination:
     server: https://kubernetes.default.svc

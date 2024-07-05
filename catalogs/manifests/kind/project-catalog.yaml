@@ -11,16 +11,16 @@ generators:
        target: cloud
        env: playground
        project: system-playground
-     - cluster: gitops-kind
-       url: https://kubernetes.default.svc
-       target: local
-       env: kind
-       project: system-playground
-     - cluster: gitops-kind
-       url: https://kubernetes.default.svc
-       target: on-prem
-       env: foo-os-int
-       project: system-playground
+    #  - cluster: gitops-kind
+    #    url: https://kubernetes.default.svc
+    #    target: local
+    #    env: kind
+    #    project: system-playground
+    #  - cluster: gitops-kind
+    #    url: https://kubernetes.default.svc
+    #    target: on-prem
+    #    env: foo-os-int
+    #    project: system-playground
  
 template:
    metadata:
