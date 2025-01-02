@@ -7,14 +7,21 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: trivial-go-web-app
+      app: trivial-nginx-app
   template:
     metadata:
       labels:
-        app: trivial-go-web-app
+        app: trivial-nginx-app
     spec:
       containers:
       - name: webserver-simple
-        image: docker.io/kostiscodefresh/gitops-simple-app:v1.0
+        image: nginx:1.26.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
         ports:
-        - containerPort: 8080
+        - containerPort: 80
