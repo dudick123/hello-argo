@@ -5,7 +5,7 @@ metadata:
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
   annotations:
-    foo.bar.com/snow-data: |
+    foo: |
       {
         "snow": "data"
       }
