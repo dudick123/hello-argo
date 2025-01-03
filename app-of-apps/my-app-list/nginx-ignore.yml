@@ -6,7 +6,7 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
-    foo: |
+    foo.bar.com/snow-data: |
       {
         "snow": "data"
       }
