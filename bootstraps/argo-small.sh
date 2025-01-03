@@ -1,7 +1,8 @@
 #!/bin/bash
 echo "Creating the Kind Cluster"
-kind create cluster --name argo-cluster --config ./kind/cluster.yaml
+kind create cluster --name argo-cluster --config ./kind-config/small-cluster.yaml
 echo
+
 echo "Installing ArgoCD Using Helm"
 kubectl create namespace argocd
 helm repo add argo https://argoproj.github.io/argo-helm
@@ -13,6 +14,10 @@ helm list -n argocd
 echo "Setting the Argo Admin Password"
 export ARGO_ADMIN_PASSWORD=abc123
 kubectl patch secret -n argocd argocd-secret -p '{"stringData": { "admin.password": "'$(htpasswd -bnBC 10 "" $ARGO_ADMIN_PASSWORD | tr -d ':\n')'"}}'
+echo
+
+echo "Creating the ArgoCD Root Application"
+kubectl apply -f ./app-of-apps/root-app/my-application.yml
 echo
 
 echo "Dont forget to port-forward the ArgoCD Server. Run this in another terminal:"
