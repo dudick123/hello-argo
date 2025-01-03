@@ -17,7 +17,7 @@ spec:
   - kind: Application
     Group: argoproj.io
     jsonPointers:
-      - /metadata/annotations/openshift.io~1sa.scc.supplemental-groups
+      - /metadata/annotations/foo
 
   # The project the application belongs to.
   project: default
