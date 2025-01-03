@@ -1,0 +1,5 @@
+  resource.customizations: |
+    argoproj.io/v1alpha1,Application:
+      ignoreDifferences: |
+        jsonPointers:
+          - "/metadata/annotations/foo.bar.com/snow-data"
