@@ -14,10 +14,11 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
+  - kind: Application
+    Group: argoproj.io
     jsonPointers:
-    - /spec/replicas
+      - /metadata/annotations/openshift.io~1sa.scc.supplemental-groups
+
   # The project the application belongs to.
   project: default
 
