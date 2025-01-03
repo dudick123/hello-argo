@@ -15,7 +15,7 @@ metadata:
 spec:
   ignoreDifferences:
   - kind: Application
-    Group: argoproj.io
+    group: argoproj.io
     jsonPointers:
       - /metadata/annotations/foo
 
