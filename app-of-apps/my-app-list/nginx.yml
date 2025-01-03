@@ -38,4 +38,4 @@ spec:
   - kind: Application
     group: argoproj.io
     jsonPointers:
-      - /metadata/annotations/foo  
+      - "/metadata/annotations/foo.bar.com/snow-data"  
